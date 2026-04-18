@@ -52,19 +52,22 @@ class App {
                 'reading': 'Reading Mastery',
                 'listening': 'Listening Skills',
                 'writing': 'Writing Practice',
-                'speaking': 'Speaking AI'
+                'speaking': 'Speaking AI',
+                'placement': 'Darajani Aniqlash'
             };
             document.getElementById('page-title').textContent = titles[viewId];
             
             // Update Navigation Highlighting
             document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
-            document.querySelector(`.nav-links li[data-target="${viewId}"]`).classList.add('active');
+            const navLink = document.querySelector(`.nav-links li[data-target="${viewId}"]`);
+            if (navLink) navLink.classList.add('active');
 
             // Initialize module if needed
             if(viewId === 'reading' && window.readingModule) readingModule.init();
             if(viewId === 'listening' && window.listeningModule) listeningModule.init();
             if(viewId === 'writing' && window.writingModule) writingModule.init();
             if(viewId === 'speaking' && window.speakingModule) speakingModule.init();
+            if(viewId === 'placement' && window.placementModule) placementModule.init();
 
         }, 400); // Wait for fade out
     }

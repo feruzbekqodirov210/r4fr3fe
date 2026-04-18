@@ -40,6 +40,9 @@
                 <li data-target="speaking">
                     <i class="fa-solid fa-microphone"></i> Speaking
                 </li>
+                <li data-target="placement" class="special-nav">
+                    <i class="fa-solid fa-star"></i> Placement Test
+                </li>
             </ul>
 
             <div class="user-stats">
@@ -110,6 +113,13 @@
                         <h3>Speaking AI</h3>
                         <p>Advanced speech recognition. Real-time correction.</p>
                         <div class="progress-bar"><div class="progress" style="width: 0%" id="speaking-progress"></div></div>
+                    </div>
+                    
+                    <div class="card module-card slide-up" style="animation-delay: 0.5s; background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0)); border-color: rgba(245, 158, 11, 0.3);" onclick="app.navigate('placement')">
+                        <div class="card-icon bg-orange" style="position: static; margin-bottom: 1rem;"><i class="fa-solid fa-star"></i></div>
+                        <h3>Darajani Aniqlash (Full Test)</h3>
+                        <p>20 ta aralash savol (A1-C1). Ingliz tili darajangizni aniqlang.</p>
+                        <div class="progress-bar"><div class="progress" style="width: 100%; background: var(--accent-warning);"></div></div>
                     </div>
                 </div>
             </section>
@@ -222,6 +232,66 @@
                 </div>
             </section>
 
+            <!-- Placement Test View -->
+            <section id="placement" class="view hidden">
+                <div class="game-container">
+                    <div class="question-header" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+                        <h2 id="p-cabinetTitle" style="color: var(--accent-blue); font-family: var(--font-heading);">Kabinet 1: Reading</h2>
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <span class="question-counter">Question <span id="p-current">1</span> / 20</span>
+                            <span class="score-pill" style="border:none; padding:0;"><span id="p-totalProgress">0/80</span> completed</span>
+                        </div>
+                    </div>
+                    
+                    <div id="p-questionArea">
+                        <div class="question-box fade-in-delayed">
+                            <div id="p-skillBadge" style="display: inline-block; padding: 5px 12px; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border-radius: 12px; margin-bottom: 1rem; font-weight: 600;">Skill</div>
+                            <h3 id="p-questionText">Loading question...</h3>
+                            
+                            <!-- Listening Audio Button -->
+                            <div id="p-audioControls" class="audio-player card glass-panel hidden" style="padding: 1.5rem !important; margin-bottom: 1.5rem;">
+                                <button class="btn btn-circle play-btn" style="width: 50px; height: 50px; font-size: 1.2rem;" onclick="placementModule.playAudio()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                                <p style="margin-top: 10px; color: var(--text-muted);">Listen to the audio</p>
+                            </div>
+
+                            <!-- Speaking Mic Button -->
+                            <div id="p-speakingControls" class="speaking-controls hidden" style="margin: 1.5rem 0;">
+                                <div class="mic-container" style="width: 80px; height: 80px; margin: 0 auto;">
+                                    <button class="btn-mic" id="p-micBtn" style="width: 60px; height: 60px; font-size: 1.5rem;" onclick="placementModule.toggleRecording()">
+                                        <i class="fa-solid fa-microphone"></i>
+                                    </button>
+                                </div>
+                                <p id="p-speechStatus" style="color: var(--accent-warning);">Click mic to speak</p>
+                            </div>
+
+                            <!-- Multiple Choice Options -->
+                            <div class="options-grid" id="p-options">
+                                <!-- Options injected here -->
+                            </div>
+
+                            <!-- Writing Textarea -->
+                            <div class="writing-area hidden" id="p-writingArea">
+                                <textarea id="p-input" placeholder="Type your answer here..." rows="3"></textarea>
+                                <button class="btn btn-primary w-submit-btn" id="p-submitBtn" onclick="placementModule.checkManualAnswer()">Javobni tasdiqlash</button>
+                            </div>
+
+                            <div class="feedback-box hidden" id="p-feedback" style="margin-top: 1rem;"></div>
+                        </div>
+                        <button class="btn btn-primary next-btn hidden" id="p-nextBtn" onclick="placementModule.nextQuestion()">Keyingisi <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+
+                    <div id="p-resultArea" class="card text-center glass-panel hidden">
+                        <i class="fa-solid fa-crown" style="font-size: 5rem; color: var(--accent-warning); margin-bottom: 1rem; filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.5));"></i>
+                        <h2>Test Yakunlandi!</h2>
+                        <p style="color: var(--text-muted); font-size: 1.2rem; margin: 1rem 0;">Sizning umumiy natijangiz: <strong id="p-scoreVal" style="color: white;">0 / 80</strong></p>
+                        <h1 style="font-size: 4rem; color: var(--accent-blue); margin: 1rem 0;">Daraja: <span id="p-levelVal">B2</span></h1>
+                        <button class="btn btn-primary" onclick="app.navigate('dashboard')">Bosh sahifaga qaytish</button>
+                    </div>
+                </div>
+            </section>
+
             <!-- Footer -->
             <footer class="app-footer">
                 <div class="footer-content">
@@ -244,5 +314,6 @@
     <script src="listening.js"></script>
     <script src="writing.js"></script>
     <script src="speaking.js"></script>
+    <script src="placement.js"></script>
 </body>
 </html>

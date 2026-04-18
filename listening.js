@@ -4,6 +4,16 @@ class ListeningModule {
         this.scorePerQuestion = 15;
         this.isAnswered = false;
         this.synth = window.speechSynthesis;
+        this.voices = [];
+        
+        // Asynchronously load voices to fix Windows/Chrome bug where voices are empty
+        const loadVoices = () => {
+            this.voices = this.synth.getVoices();
+        };
+        loadVoices();
+        if (this.synth.onvoiceschanged !== undefined) {
+            this.synth.onvoiceschanged = loadVoices;
+        }
     }
 
     init() {
@@ -44,10 +54,36 @@ class ListeningModule {
         const q = window.db.listening[this.currentIndex];
         const utterance = new SpeechSynthesisUtterance(q.audioText);
         
-        // Settings for clear English pronunciation
+        // Improve clarity for English learners
         utterance.lang = 'en-US';
-        utterance.rate = 0.9;
-        utterance.pitch = 1;
+        utterance.rate = 0.85; // Optimal speed (not too slow to sound robotic)
+        utterance.pitch = 1.05; // Slightly higher pitch for clarity
+
+        // Try to pick the clearest high-quality voice available on Windows/Chrome
+        let voices = this.voices.length > 0 ? this.voices : this.synth.getVoices();
+        
+        // Priority list of the clearest voices
+        const premiumVoices = [
+            'Google US English', // Best on Chrome
+            'Microsoft Zira Desktop', // Excellent female voice on Windows
+            'Microsoft Mark Desktop', // Excellent male voice on Windows
+            'Samantha' // Best on Mac
+        ];
+
+        let bestVoice = null;
+        for (let vName of premiumVoices) {
+            bestVoice = voices.find(v => v.name.includes(vName));
+            if (bestVoice) break;
+        }
+
+        // Fallback to any local English voice if premium ones aren't found
+        if (!bestVoice) {
+            bestVoice = voices.find(v => v.lang === 'en-US' && v.localService);
+        }
+
+        if (bestVoice) {
+            utterance.voice = bestVoice;
+        }
 
         const waveform = document.getElementById('l-waveform');
         
