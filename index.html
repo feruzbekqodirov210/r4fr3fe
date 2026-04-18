@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevate - Premium English Mastery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="premium.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Elevate</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="active" data-target="dashboard">
+                    <i class="fa-solid fa-house"></i> Dashboard
+                </li>
+                <li data-target="reading">
+                    <i class="fa-solid fa-book-open"></i> Reading
+                </li>
+                <li data-target="listening">
+                    <i class="fa-solid fa-headphones"></i> Listening
+                </li>
+                <li data-target="writing">
+                    <i class="fa-solid fa-pen-nib"></i> Writing
+                </li>
+                <li data-target="speaking">
+                    <i class="fa-solid fa-microphone"></i> Speaking
+                </li>
+            </ul>
+
+            <div class="user-stats">
+                <div class="stat-box">
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Score</span>
+                        <span class="stat-value" id="global-score">0</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- Header -->
+            <header class="top-header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="user-profile">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <span>Feruzbek Qodirov</span>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view active">
+                <div class="welcome-banner glass-panel slide-up">
+                    <div class="banner-content">
+                        <h2 class="typewriter">Welcome, Feruzbek Qodirov!</h2>
+                        <p class="fade-in-delayed">Elevate your skills from B2 to C1 with AI-powered, immersive exercises.</p>
+                        <div class="quick-stats fade-in-delayed">
+                            <div class="stat-pill"><i class="fa-solid fa-fire"></i> 20,000 Tasks</div>
+                            <div class="stat-pill"><i class="fa-solid fa-chart-line"></i> B2-C1 Level</div>
+                            <div class="stat-pill"><i class="fa-solid fa-robot"></i> AI Correction</div>
+                        </div>
+                    </div>
+                    <div class="banner-visual fade-in-delayed">
+                        <div class="pulse-ring"></div>
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                </div>
+
+                <div class="module-cards">
+                    <div class="card module-card slide-up" style="animation-delay: 0.1s" onclick="app.navigate('reading')">
+                        <img src="assets/reading.png" alt="Reading" class="card-image">
+                        <div class="card-icon bg-blue"><i class="fa-solid fa-book-open"></i></div>
+                        <h3>Reading Mastery</h3>
+                        <p>5,000 dynamic questions to improve your comprehension.</p>
+                        <div class="progress-bar"><div class="progress" style="width: 0%" id="reading-progress"></div></div>
+                    </div>
+                    <div class="card module-card slide-up" style="animation-delay: 0.2s" onclick="app.navigate('listening')">
+                        <img src="assets/listening.png" alt="Listening" class="card-image">
+                        <div class="card-icon bg-purple"><i class="fa-solid fa-headphones"></i></div>
+                        <h3>Listening Skills</h3>
+                        <p>AI-powered audio generation. 5,000 listening tests.</p>
+                        <div class="progress-bar"><div class="progress" style="width: 0%" id="listening-progress"></div></div>
+                    </div>
+                    <div class="card module-card slide-up" style="animation-delay: 0.3s" onclick="app.navigate('writing')">
+                        <img src="assets/writing.png" alt="Writing" class="card-image">
+                        <div class="card-icon bg-orange"><i class="fa-solid fa-pen-nib"></i></div>
+                        <h3>Writing Practice</h3>
+                        <p>5,000 grammar and writing structure exercises.</p>
+                        <div class="progress-bar"><div class="progress" style="width: 0%" id="writing-progress"></div></div>
+                    </div>
+                    <div class="card module-card slide-up" style="animation-delay: 0.4s" onclick="app.navigate('speaking')">
+                        <img src="assets/speaking.png" alt="Speaking" class="card-image">
+                        <div class="card-icon bg-green"><i class="fa-solid fa-microphone"></i></div>
+                        <h3>Speaking AI</h3>
+                        <p>Advanced speech recognition. Real-time correction.</p>
+                        <div class="progress-bar"><div class="progress" style="width: 0%" id="speaking-progress"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reading View -->
+            <section id="reading" class="view hidden">
+                <div class="game-container">
+                    <div class="question-header">
+                        <span class="question-counter">Question <span id="r-current">1</span> / 5000</span>
+                        <div class="score-pill"><i class="fa-solid fa-bolt"></i> +<span id="r-points">10</span> pts</div>
+                    </div>
+                    <div class="reading-passage card glass-panel" id="r-passage">
+                        Loading passage...
+                    </div>
+                    <div class="question-box fade-in-delayed">
+                        <h3 id="r-questionText">Loading question...</h3>
+                        <div class="options-grid" id="r-options">
+                            <!-- Options injected here -->
+                        </div>
+                    </div>
+                    <div class="feedback-box hidden" id="r-feedback"></div>
+                    <button class="btn btn-primary next-btn hidden" id="r-nextBtn" onclick="readingModule.nextQuestion()">Next Question <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Listening View -->
+            <section id="listening" class="view hidden">
+                <div class="game-container">
+                    <div class="question-header">
+                        <span class="question-counter">Question <span id="l-current">1</span> / 5000</span>
+                        <div class="score-pill"><i class="fa-solid fa-bolt"></i> +<span id="l-points">15</span> pts</div>
+                    </div>
+                    
+                    <div class="audio-player card glass-panel">
+                        <div class="waveform-animation hidden" id="l-waveform">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        </div>
+                        <button class="btn btn-circle play-btn" id="l-playBtn" onclick="listeningModule.playAudio()">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <p class="audio-instruction">Click to listen to the audio</p>
+                    </div>
+
+                    <div class="question-box">
+                        <h3 id="l-questionText">What did the speaker say?</h3>
+                        <div class="options-grid" id="l-options">
+                            <!-- Options injected here -->
+                        </div>
+                    </div>
+                    <div class="feedback-box hidden" id="l-feedback"></div>
+                    <button class="btn btn-primary next-btn hidden" id="l-nextBtn" onclick="listeningModule.nextQuestion()">Next Question <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Writing View -->
+            <section id="writing" class="view hidden">
+                <div class="game-container">
+                    <div class="question-header">
+                        <span class="question-counter">Question <span id="w-current">1</span> / 5000</span>
+                        <div class="score-pill"><i class="fa-solid fa-bolt"></i> +<span id="w-points">20</span> pts</div>
+                    </div>
+                    
+                    <div class="question-box card glass-panel">
+                        <h3 id="w-questionText">Loading writing task...</h3>
+                        <p class="hint" id="w-hint">Translate or rewrite the sentence correctly.</p>
+                    </div>
+
+                    <div class="writing-area">
+                        <textarea id="w-input" placeholder="Type your answer here..." rows="4"></textarea>
+                        <button class="btn btn-primary w-submit-btn" onclick="writingModule.checkAnswer()">Submit Answer</button>
+                    </div>
+
+                    <div class="feedback-box hidden" id="w-feedback"></div>
+                    <div class="diff-result hidden" id="w-diff"></div>
+                    <button class="btn btn-primary next-btn hidden" id="w-nextBtn" onclick="writingModule.nextQuestion()">Next Question <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Speaking View -->
+            <section id="speaking" class="view hidden">
+                <div class="game-container">
+                    <div class="question-header">
+                        <span class="question-counter">Question <span id="s-current">1</span> / 5000</span>
+                        <div class="score-pill"><i class="fa-solid fa-bolt"></i> +<span id="s-points">25</span> pts</div>
+                    </div>
+                    
+                    <div class="question-box card text-center glass-panel">
+                        <p class="instruction">Please read the following sentence out loud:</p>
+                        <h2 class="target-phrase" id="s-targetText">Loading sentence...</h2>
+                    </div>
+
+                    <div class="speaking-controls">
+                        <div class="mic-container">
+                            <button class="btn-mic" id="s-micBtn" onclick="speakingModule.toggleRecording()">
+                                <i class="fa-solid fa-microphone"></i>
+                            </button>
+                            <div class="ripple-effect hidden" id="s-ripple"></div>
+                        </div>
+                        <p id="s-status">Click microphone to start</p>
+                    </div>
+
+                    <div class="speech-result card glass-panel hidden" id="s-resultBox">
+                        <h3>You said:</h3>
+                        <p id="s-transcript" class="transcript"></p>
+                    </div>
+
+                    <div class="feedback-box hidden" id="s-feedback"></div>
+                    <div class="diff-result hidden" id="s-diff"></div>
+                    <button class="btn btn-primary next-btn hidden" id="s-nextBtn" onclick="speakingModule.nextQuestion()">Next Question <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <div class="footer-content">
+                    <a href="https://instagram.com/qodiroff.edits" target="_blank" class="footer-link">
+                        <i class="fa-brands fa-instagram"></i> @qodiroff.edits
+                    </a>
+                    <a href="tel:+998704754202" class="footer-link">
+                        <i class="fa-solid fa-phone"></i> +998 70 475 42 02
+                    </a>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+    <script src="reading.js"></script>
+    <script src="listening.js"></script>
+    <script src="writing.js"></script>
+    <script src="speaking.js"></script>
+</body>
+</html>
